@@ -21,7 +21,7 @@ public class AuthInterceptor extends AbstractInterceptor {
 			//调用拦截器链后面的拦截器，或者Action
 			returnCode= invocation.invoke();
 		}else{
-			invocation.getStack().setParameter("msg", "请登录");
+			//invocation.getStack().setParameter("msg", "请登录");
 		}
 		
 		return returnCode;

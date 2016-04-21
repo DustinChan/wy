@@ -17,9 +17,9 @@ import com.briup.wy.bean.Customer;
  * */
 public class CustomerDao {
 	private String driver = "com.mysql.jdbc.Driver";
-	private String url = "jdbc:mysql://127.0.0.1:3306/wy";
+	private String url = "jdbc:mysql://127.0.0.1:3306/customer";
 	private String name = "root";
-	private String passwd = "root";
+	private String passwd = "123";
 	/**
 	 * 保存
 	 * @throws Exception 
