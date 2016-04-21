@@ -1,12 +1,16 @@
 package com.briup.wy.web.action;
 
+import java.util.Map;
+
+import org.apache.struts2.interceptor.SessionAware;
+
 import com.briup.wy.bean.Customer;
 import com.briup.wy.common.exception.ServiceException;
 import com.briup.wy.service.ICustomerService;
 import com.briup.wy.service.impl.CustomerServiceImpl;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class CustomerAction extends ActionSupport {
+public class CustomerAction extends ActionSupport implements SessionAware{
 
 	private static final long serialVersionUID = 1L;
 	//同名参数传值
@@ -22,6 +26,12 @@ public class CustomerAction extends ActionSupport {
 	private String msg;
 	
 	private ICustomerService customerService = new CustomerServiceImpl();
+	private Map<String, Object> session;
+	
+	@Override
+	public void setSession(Map<String, Object> session) {
+		this.session = session;
+	}
 	/**
 	 * 跳转到注册页面
 	 * */
@@ -38,12 +48,26 @@ public class CustomerAction extends ActionSupport {
 		return "login";
 	}
 	
+	public String toIndex(){
+		
+		return "index";
+	}
+	
 	/**
 	 * 登陆
 	 * */
 	public String login(){
-		
-		return "success";
+		String url = "index";
+		try {
+			Customer customer 
+				= customerService.login(name, password);
+			session.put("customer", customer);
+		} catch (ServiceException e) {
+			e.printStackTrace();
+			msg = e.getMessage();
+			url = "login";
+		}
+		return url;
 	}
 	
 	/**
@@ -118,4 +142,6 @@ public class CustomerAction extends ActionSupport {
 	public void setMsg(String msg) {
 		this.msg = msg;
 	}
+
+	
 }

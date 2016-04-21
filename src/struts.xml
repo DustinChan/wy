@@ -18,9 +18,24 @@
 			class="com.briup.wy.web.action.CustomerAction">
 			<result name="login">/WEB-INF/jsp/login.jsp</result>
 			<result name="register">/WEB-INF/jsp/register.jsp</result>
-			<result name="success">/WEB-INF/jsp/success.jsp</result>
+			<result name="success">/WEB-INF/jsp/user/home.jsp</result>
+			<result name="index">/WEB-INF/jsp/index.jsp</result>
 		</action> 
-		
+    </package>
+    
+    <package name="user" namespace="/user" extends="struts-default">
+    	<interceptors>
+    		<interceptor name="auth" class="com.briup.wy.web.interceptor.AuthInterceptor"></interceptor>
+    		<interceptor-stack name="userStack">
+    			<interceptor-ref name="auth"></interceptor-ref>
+    			<interceptor-ref name="defaultStack"></interceptor-ref>
+    		</interceptor-stack>
+    	</interceptors>
+    	<default-interceptor-ref name="userStack"></default-interceptor-ref>
+    	
+		<action name="customer" 
+			class="com.briup.wy.web.action.user.CustomerAction">
+		</action> 
     </package>
 
 </struts>
